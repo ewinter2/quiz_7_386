@@ -21,7 +21,26 @@ def longest_sequence(limit):
             starting_num = i
     return starting_num, max_length
 
+def collatz(n, d):
+    og = n 
+    if d.get(n, False):
+        return n, d[n]
+    c = 1
+    while n != 1:
+        if n % 2 == 0:
+            n = n // 2
+        else:
+            n = 3 * n + 1
+        if d.get(n, False):
+            d[og] = d[n] + c
+            return n, d[og] + c
+        c += 1
+    return n, c
+
+
 limit = 1000000
-result, length = longest_sequence(limit)
+dict = {}
+result, length = collatz(limit, dict)
 print('The starting number under', limit, 'that produces the longest sequence is:', result)
 print('The length of the sequence is:', length)
+
